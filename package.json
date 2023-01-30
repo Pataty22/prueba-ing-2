@@ -1,0 +1,9 @@
+{
+    "name": "hack-academy_coding-bootcamp_exercise-2",
+    "version": "1.0.0",
+    "description": "Hack Academy - Coding Bootcamp - Exercise 2",
+    "dependencies": {},
+    "devDependencies": {
+      "parcel-bundler": "^1.6.1"
+    }
+  }
