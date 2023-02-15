@@ -1,10 +1,16 @@
 document.getElementById("btn-add").addEventListener("click", insertUser);
 
 var usuarios;
+var porPag;
+var totalUsuarios;
+
+
 fetch('https://reqres.in/api/users')
     .then(response => response.json())
-    .then(json => {
+    .then(json => {   
         usuarios = json.data;
+        porPag = json.per_page;
+        totalUsuarios = json.total;
         for (var i = 0; i < usuarios.length; i++){
             addUser(usuarios[i]);
         }
@@ -33,10 +39,18 @@ fetch('https://reqres.in/api/users')
     }
 
     function insertUser(){
-        fetch('https://reqres.in/api/users?page=2')
+        if (usuarios.length === totalUsuarios){
+            alert('No hay más usuarios para agregar')
+            return;
+        }
+
+        var page = Math.floor(usuarios.length/porPag) +1;
+        var element = usuarios.length % porPag;
+
+        fetch('https://reqres.in/api/users?page=' + page)
         .then(response => response.json())
         .then(json => {
-            var usuario = json.data[0];
+            var usuario = json.data[element];
             usuarios.push(usuario);
             addUser(usuario);
         });
